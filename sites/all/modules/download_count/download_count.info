@@ -1,0 +1,13 @@
+; $Id: download_count.info,v 1.2.4.2 2008/05/04 16:57:20 chill35 Exp $
+name = Download counter
+description = "Increments a download counter and logs a descriptive message each time an attached file is downloaded."
+dependencies[] = upload
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2010-06-01
+version = "6.x-1.5"
+core = "6.x"
+project = "download_count"
+datestamp = "1275405905"
+

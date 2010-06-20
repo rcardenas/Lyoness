@@ -1,0 +1,174 @@
+# $Id: ja.po,v 1.1.2.5 2008/05/24 06:59:05 imagine Exp $
+#
+# Japanese translation of Drupal (download_count)
+# Copyright 2008 0829 <hixarg+0829@gmail.com>
+# Generated from files:
+#  download_count.module,v 1.13.2.4 2008/05/24 05:13:15 chill35
+#  download_count.info,v 1.2.4.2 2008/05/04 16:57:20 chill35
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2008-05-24 15:45+0900\n"
+"Last-Translator: 0829 <hixarg+0829@gmail.com>\n"
+"Language-Team: DRUPAL*DRUPAL <hixarg+0829@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: download_count.module:12;34 download_count.info:0
+msgid "Increments a download counter and logs a descriptive message each time an attached file is downloaded."
+msgstr "添付ファイルがダウンロードされる度にダウンロードカウンタのカウント数を増加し、ログにメッセージを残します。"
+
+#: download_count.module:54
+msgid "You are using public download. Set your download method to private on the File system configuration <a href=\"@admin-file-system\">page</a>, if you wish for Drupal to keep a record of downloaded files."
+msgstr "ファイルシステムの設定でダウンロードの方法がパブリックに設定されています。 ダウンロードされたファイルの記録を残したいのであれば、<a href=\"@admin-file-system\">ファイルシステムの設定ページ</a>でダウンロード方法をプライベートに変更してください。"
+
+#: download_count.module:57
+msgid "You are using the private download method, hence you have the correct setting to allow this module to keep a record of downloaded files."
+msgstr "ファイルシステムの設定でダウンロードの方法がプライベートに設定されています。 これはこのモジュールを利用してダウンロードされたファイルの記録を残すための適切な設定です。"
+
+#: download_count.module:65
+msgid "Ignoring certain file extensions"
+msgstr "指定された拡張子のファイルを無視"
+
+#: download_count.module:71
+msgid "Excluded file extensions"
+msgstr "除外するファイルの拡張子"
+
+#: download_count.module:74
+msgid "This module only considers files that have been uploaded with the upload module and that become file attachments.  However, if you are using a contributed module to upload images and display them in the body of nodes, these files may get flagged as downloaded whenever a visitor or robot views the node page, because strictly speaking they are file attachments. This will happen with the module img_assist. Note that this won't happen with the module imce, because imce treats inline images as nodes. If you do not want to set a download counter for image files, list their extension here. Separate extensions with a space and do not include the leading dot. For example, you could list these extensions&nbsp: jpg jpeg gif png. If you do not want to exclude any file, leave that field blank. "
+msgstr "このモジュールは、Upload モジュールを利用して添付されたファイルのみを監視します。 コンテンツの本文にファイルをアップロードして表示するために他の拡張モジュールを利用している場合、厳密にはそれらのファイルも添付ファイルと言えるので、訪問者やロボットがページを表示するたびにファイルのダウンロード数としてカウントされてしまうかもしれません。 これは Image Assist モジュールで起こります。 また、同様の機能を持つ IMCE モジュールはインラインイメージを添付ファイルではなく一つのノードのように扱っているためこの問題は起りません。  ダウンロードカウンタを画像に対して設定したくない場合は、ここにファイルの拡張子をドット（.）を含めずに入力してください。 スペースで区切ることで複数の拡張子を指定できます。（例 ： jpg jpeg gif png） 全てのファイルをカウントの対象に設定したい場合は空欄にしてください。"
+
+#: download_count.module:78
+msgid "Download count in nodes"
+msgstr "コンテンツ内のダウンロードカウンタ"
+
+#: download_count.module:84
+msgid "Do not show download count in the node view for the administrator"
+msgstr "管理者がコンテンツを表示した場合にはダウンロードカウンタを表示しない"
+
+#: download_count.module:86
+msgid "Check this if you do not want to see the download count in the node view."
+msgstr "管理者としてログインしている場合に、コンテンツの全文表示ページにダウンロードカウンタを表示しない場合はチェックしてください。"
+
+#: download_count.module:90
+msgid "Download counter page"
+msgstr "ダウンロードカウンタページ"
+
+#: download_count.module:96
+msgid "Title"
+msgstr "タイトル"
+
+#: download_count.module:97;124;35;43 download_count.info:0
+msgid "Download counter"
+msgstr "ダウンロードカウンタ"
+
+#: download_count.module:98
+msgid "Title of this <a href=\"@page\">page</a>."
+msgstr "<a href=\"@page\">このページ</a>のタイトルを入力します。"
+
+#: download_count.module:102
+msgid "Header"
+msgstr "ヘッダ"
+
+#: download_count.module:106
+msgid "Text to appear between the title of the page and the download counter table."
+msgstr "タイトルとダウンロードカウンタテーブルの間に表示するテキストを入力します。"
+
+#: download_count.module:110
+msgid "Footer"
+msgstr "フッタ"
+
+#: download_count.module:114
+msgid "Text to appear underneath the download counter table."
+msgstr "ダウンロードカウンタテーブルの下に表示するテキストを入力します。"
+
+#: download_count.module:118
+msgid "Visit the Permissions <a href=\"@page\">page</a> to allow roles to view download count in nodes and on the download counter page."
+msgstr "<a href=\"@page\">権限の設定ページ</a>で、コンテンツやダウンロードカウンタページへのダウンロード数の表示を許可するロールの設定を行ってください。"
+
+#: download_count.module:125
+msgid "filename"
+msgstr "ファイル名"
+
+#: download_count.module:126
+msgid "hits"
+msgstr "ヒット数"
+
+#: download_count.module:127
+msgid "last download"
+msgstr "最終ダウンロード"
+
+#: download_count.module:128
+msgid "action"
+msgstr "アクション"
+
+#: download_count.module:140;220
+msgid "@time ago"
+msgstr "@time前"
+
+#: download_count.module:141
+msgid "view @type"
+msgstr "@typeを表示"
+
+#: download_count.module:145
+msgid "No file attachment has been downloaded."
+msgstr "ダウンロードされた添付ファイルはありません。"
+
+#: download_count.module:207
+msgid "Attachment"
+msgstr "添付"
+
+#: download_count.module:208
+msgid "Size"
+msgstr "サイズ"
+
+#: download_count.module:209
+msgid "Hits"
+msgstr "アクセス数"
+
+#: download_count.module:210
+msgid "Last download"
+msgstr "最終ダウンロード"
+
+#: download_count.module:224
+msgid "Not yet downloaded"
+msgstr "ダウンロードされていません。"
+
+#: download_count.module:168;179
+msgid "download"
+msgstr "ダウンロード"
+
+#: download_count.module:168
+msgid "%file was downloaded"
+msgstr "%file がダウンロードされました。"
+
+#: download_count.module:179
+msgid "Failed to download %file"
+msgstr "%file のダウンロードが失敗しました。"
+
+#: download_count.module:20
+msgid "view all downloads count"
+msgstr "すべてのダウンロード数の表示"
+
+#: download_count.module:21
+msgid "view own nodes downloads count"
+msgstr "自分のノードのダウンロード数の表示"
+
+#: download_count.module:22
+msgid "view all downloads count in nodes"
+msgstr "すべてのダウンロード数の表示（ノード内）"
+
+#: download_count.module:23
+msgid "view own nodes downloads count in nodes"
+msgstr "自分のノードのダウンロード数の表示（ノード内）"
+
+#: download_count.module:24
+msgid "administer download counter"
+msgstr "ダウンロードカウンタの管理"
+
+#: download_count.module:0
+msgid "download_count"
+msgstr "download_count"

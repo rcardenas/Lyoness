@@ -1,0 +1,37 @@
+<?php
+// $Id: download_count.install,v 1.2.2.1 2008/01/11 01:42:14 chill35 Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+
+function download_count_install() {
+  // Create tables.
+  drupal_install_schema('download_count');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function download_count_schema() {
+
+$schema['file_downloads'] = array(
+    'fields' => array(
+         'filename' => array('type' => 'varchar', 'length' => '255', 'not null' => 1),
+         'timestamp' => array('type' => 'int', 'not null' => 1, 'default' => 0, 'disp-width' => '11'),
+         'count' => array('type' => 'int', 'not null' => 1, 'default' => 0, 'disp-width' => '11')),
+    'unique keys' => array(
+         'filename' => array('filename')),
+);
+
+  return $schema;
+
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function download_count_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('download_count');
+}
