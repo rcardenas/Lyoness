@@ -1,0 +1,8 @@
+; $Id: download_count.info,v 1.4 2010/06/02 03:22:56 worldfallz Exp $
+name = Lyoness tracking
+description = Tracks EP downloads with Google Analytics
+core = 6.x
+; Information added by drupal.org packaging script on 2010-06-16
+version = "6.x-2.x-dev"
+core = "6.x"
+dependencies[] = google_analytics
