@@ -1,5 +1,5 @@
 <?php
-// $Id: creativecommons.class.php,v 1.3.4.46 2009/11/04 11:43:16 balleyne Exp $
+// $Id: creativecommons.class.php,v 1.3.4.49 2010/08/11 16:33:47 kreynen Exp $
 
 /**
  * @file
@@ -50,7 +50,7 @@ class creativecommons_license {
     }
     // don't fetch a blank license
     else {
-      $this->name = t('All Rights Reserved (None)');
+      $this->name = t('None (All Rights Reserved)');
       $this->type = '';
     }
 
@@ -225,12 +225,14 @@ class creativecommons_license {
    * @param $style -- either button_large, button_small, icons or tiny_icons
    */
   function get_image($style) {
-    if (empty($this->type)) return;
+    if (empty($this->type)) {
+      $this->type = 'all-rights-reserved';
+    }
 
     $img = array();
     $img_dir = base_path() . drupal_get_path('module', 'creativecommons') .'/images';
     $nc = variable_get('creativecommons_nc_img', '');
-
+ 
     switch ($style) {
       case 'button_large':
         //TODO: missing jp large buttons... not on creativecommons.org
@@ -241,12 +243,13 @@ class creativecommons_license {
         // The directory which the icons reside
         $dir = $img_dir .'/'. str_replace('_', 's/', $style) .'/';
 
-        $img[] = '<img src="'. $dir . ($filename ? $filename : $this->type) .'.png" style="border-width: 0pt;" title="'. $this->get_name('full') .'" alt="'. $this->get_name('full') .'"/>';
+        $img[] = '<img src="'. $dir . (isset($filename) ? $filename : $this->type) .'.png" style="border-width: 0pt;" title="'. $this->get_name('full') .'" alt="'. $this->get_name('full') .'"/>';
         break;
       case 'tiny_icons':
         $px = '15';
       case 'icons':
         $name = array(
+          'all-rights-reserved' => t('All Rights Reserved'),
           'by' => t('Attribution'),
           'nc' => t('Noncommercial'),
           'nc-eu' => t('Noncommercial (Euro)'),
@@ -256,13 +259,17 @@ class creativecommons_license {
           'pd' => t('Public Domain'),
           'zero' => t('Zero'),
         );
-        if (!$px) {
+        if (!isset($px)) {
           $px = '32';
         }
+        
         foreach (explode('-', $this->type) as $filename) {
           // NC options
           if ($filename == 'nc' && $nc) {
             $filename .= '-'. $nc;
+          }
+          if($filename == 'rights') {
+            $filename = $this->type;
           }
 
           $img[] = '<img src="'. $img_dir .'/icons/'. $filename .'.png" style="border-width: 0pt; width: '. $px .'px; height: '. $px .'px;" alt="'. $name[$filename] .'"/>';
@@ -313,7 +320,7 @@ class creativecommons_license {
    */
   function is_valid() {
     // note: license xml was already extracted in constructor
-    return !($this->error['id'] == 'invalid');
+    return !(isset($this->error) && $this->error['id'] == 'invalid');
   }
 
   /**
@@ -389,6 +396,7 @@ class creativecommons_license {
               "\n\tclass=\"creativecommons\">\n\t\t";
 
     // Image
+    
     $img = $this->get_image(variable_get('creativecommons_image_style', 'button_large'));
     if ($img) {
       $attributes['rel'] = 'license';
@@ -410,6 +418,7 @@ class creativecommons_license {
     // All rights reserved
     if ($this->type == '') {
       // None (All Rights Reserved)
+      $img = $this->get_image(variable_get('creativecommons_image_style', 'button_large'));
       $html .= check_markup(variable_get('creativecommons_arr_text', NULL));
     }
     // Site license, no attribution name
@@ -428,6 +437,10 @@ class creativecommons_license {
       // CC0
       if ($this->type == 'zero') {
         $html .= t('To the extent possible under law, all copyright and related or neighboring rights to this <span rel="dc:type" href="@dc:type-uri">@dc:type-name</span>, <span property="dc:title">@dc:title</span>, by <a rel="cc:attributionURL" href="@cc:attributionURL" property="cc:attributionName">@cc:attributionName</a> have been waived.', $args);
+      }
+      // All Rights Reserved
+      if ($this->type == 'all-rights-reserved') {
+        $html .= t('To the extent possible under law, all copyright and related or neighboring rights to this <span rel="dc:type" href="@dc:type-uri">@dc:type-name</span>, <span property="dc:title">@dc:title</span>, by @cc:attributionName are Reserved.', $args);
       }
       // Rest
       else {
@@ -479,8 +492,10 @@ class creativecommons_license {
     $this->check_metadata();
 
     if ($this->rdf) {
-      foreach ($this->rdf['attributes'] as $attr => $val)
+      $a = '';
+      foreach ($this->rdf['attributes'] as $attr => $val) {
         $a .= " $attr=\"$val\"";
+      }
     }
     $rdf = "<rdf:RDF$a>\n";
 
