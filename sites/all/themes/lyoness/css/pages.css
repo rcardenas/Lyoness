@@ -13,9 +13,22 @@
 /*
  * Body
  */
-body {
+body 
+{
   margin: 0;
   padding: 0;
+  padding-top: 32px;
+	background: url(../images/ly/bg.jpg) center top;
+	color: #999999;
+}
+
+#main a:link
+{
+  color: #daa600 !important;
+}
+#main a:visited, a:active
+{
+  color: #876a00 !important;
 }
 
 #page-wrapper {
@@ -61,11 +74,45 @@ body {
 }
 
 #logo /* Wrapping link for logo */ {
-  float: left; /* LTR */
   margin: 0;
   padding: 0;
 }
 
+/* @group Blocks */
+
+#block-menu-primary-links
+{
+	background-image: url(../images/ly/menubg.jpg);
+	border-bottom: 8px solid #8a6400;
+}
+#block-menu-primary-links ul
+{
+	margin: 0;
+	padding: 10px 0;
+}
+#block-menu-primary-links a
+{
+	display: block;
+	height: 38px;
+}
+#block-menu-primary-links .active-trail
+{
+	background-image: url(../images/ly/activemenubg.png);
+}
+#block-menu-primary-links li
+{
+	list-style-type: none;
+	list-style-image: none;
+}
+#block-block-5
+{
+	margin: 0;
+	border-bottom: 1px solid #8a6400;
+}
+
+
+
+/* @end */
 #logo img {
   vertical-align: bottom;
 }
@@ -112,7 +159,10 @@ div#site-name /* The name of the website */ {
 #content {
 }
 
-#content .section {
+#content .section 
+{
+	padding: 32px;
+	padding-top: 0;
 }
 
 #mission /* The mission statement of the site (displayed on homepage) */ {
