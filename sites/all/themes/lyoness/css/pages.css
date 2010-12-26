@@ -308,7 +308,29 @@ ul.links li {
 /*
  * Closure
  */
-.region-page-closure /* Wrapper for any blocks placed in the closure region */ {
+.region-page-closure /* Wrapper for any blocks placed in the closure region */ 
+{
+	height: 200px;
+	border-top: 1px solid #8a6400;
+	margin-top: 32px;
+	background: #151515 url(../images/ly/closurebg.gif) repeat-x;
+	padding-top: 32px;
+	font-size: 11px;
+	line-height: 14px;
+	color: #333333;
+}
+.region-page-closure a:link,
+.region-page-closure a:visited
+{
+	color: #666666 !important;
+}
+#block-creativecommons-site_license
+{
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+	background: url(../images/ly/minily.png) no-repeat center top;
+	padding-top: 30px;
 }
 
 /*
