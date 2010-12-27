@@ -9,6 +9,18 @@
  * ul.links, .pager, .more-link, etc.
  */
 
+@font-face {
+     font-family: Orbitron;
+     src: url('../fonts/orbitron-light.eot');
+     src: url('../fonts/orbitron-light.otf') format('opentype');
+}
+
+@font-face {
+     font-family: Raleway;
+     src: url('../fonts/raleway_thin.eot');
+     src: url('../fonts/raleway_thin.otf') format('opentype');
+}
+
 
 /*
  * Body
@@ -24,11 +36,11 @@ body
 
 #main a:link
 {
-  color: #daa600 !important;
+  color: #daa600;
 }
 #main a:visited, a:active
 {
-  color: #876a00 !important;
+  color: #876a00;
 }
 
 #page-wrapper {
@@ -90,10 +102,22 @@ body
 	margin: 0;
 	padding: 10px 0;
 }
-#block-menu-primary-links a
+#main #block-menu-primary-links a
 {
-	display: block;
-	height: 38px;
+	color: #FFFFFF;
+    display: block;
+    font-family: Orbitron, Helvetica, Arial;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 20px;
+    text-align: right;
+    text-decoration: none;
+    text-shadow: 0 0 3px #000000;
+    text-transform: uppercase;
+}
+#main #block-menu-primary-links .active-trail a
+{
+	color: #dba800;
 }
 #block-menu-primary-links .active-trail
 {
@@ -113,6 +137,20 @@ body
 
 
 /* @end */
+
+/* @group Styles */
+
+#content h1.title
+{
+	color: #DBA800;
+    font-family: Orbitron,Helvetica,Arial;
+    font-weight: normal;
+    text-shadow: 0 0 3px #000000;
+    text-transform: uppercase;
+}
+
+/* @end */
+
 #logo img {
   vertical-align: bottom;
 }
@@ -161,8 +199,7 @@ div#site-name /* The name of the website */ {
 
 #content .section 
 {
-	padding: 32px;
-	padding-top: 0;
+	padding: 0 32px;
 }
 
 #mission /* The mission statement of the site (displayed on homepage) */ {
@@ -189,7 +226,14 @@ tr.odd {
   /* background-color: #eee; */ /* Drupal core uses a #eee background */
 }
 
-div.messages /* Important messages (status, warning, and error) for the user. See also the declarations in messages.css. */ {
+div.messages /* Important messages (status, warning, and error) for the user. See also the declarations in messages.css. */ 
+{
+	background-color: transparent !important;
+    background-image: none;
+    border-style: dashed;
+    border-width: 1px;
+    margin: 0 0 32px;
+    padding: 10px 0;
 }
 
 div.status /* Normal priority messages */ {
@@ -224,7 +268,12 @@ div.tabs /* See also the tabs.css file. */ {
   text-align: right;
 }
 
-#content-area /* Wrapper for the actual page content */ {
+#content-area /* Wrapper for the actual page content */ 
+{
+	padding: 32px;
+	background-color: #000000;
+	border-bottom: 8px solid #333333;
+	border-top: 1px solid #333333;
 }
 
 ul.links /* List of links */ {
