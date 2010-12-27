@@ -62,6 +62,7 @@
  *   and http://drupal.org/node/190815#template-suggestions
  */
 
+drupal_add_js(path_to_theme().'/js/lyoness.js','theme');
 
 /**
  * Implementation of HOOK_theme().

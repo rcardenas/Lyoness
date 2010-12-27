@@ -107,6 +107,14 @@ body
 	margin: 0;
 	padding: 10px 0;
 }
+#block-menu-primary-links ul ul
+{
+	margin: 0;
+	padding: 0;
+	background-color: #000000;
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+}
 #main #block-menu-primary-links a
 {
 	color: #FFFFFF;
@@ -124,9 +132,22 @@ body
 {
 	color: #dba800;
 }
+#main #block-menu-primary-links .active-trail .active-trail a
+{
+	color: #FFFFFF;
+}
+#main #block-menu-primary-links .active-trail ul a,
+#main #block-menu-primary-links ul ul a
+{
+	color: #666666;
+}
 #block-menu-primary-links .active-trail
 {
 	background-image: url(../images/ly/activemenubg.png);
+}
+#block-menu-primary-links .active-trail .active-trail
+{
+	background-image: none;
 }
 #block-menu-primary-links li
 {

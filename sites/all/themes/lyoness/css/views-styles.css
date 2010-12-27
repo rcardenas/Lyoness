@@ -5,6 +5,26 @@
  * Views Styling
  */
 
+/* @group Videos */
+
+.emvideo-thumbnail-replace-full .emvideo-thumbnail-replacement span
+{
+	display: none;
+}
+.view-videos .views-row
+{
+    border-bottom: 1px dotted #333333;
+    margin-bottom: 20px;
+}
+.view-videos .views-field-title
+{
+    font-weight:bold;
+    font-size:23px;
+    line-height:24px;
+}
+
+/* @end */
+
 /* @group Tour */
 
 .view-tour-dates table
