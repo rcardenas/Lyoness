@@ -5,4 +5,36 @@
  * Views Styling
  */
 
+/* @group Tour */
+
+.view-tour-dates table
+{
+	margin: 0;
+}
+.view-tour-dates td
+{
+	padding: 10px 0;
+}
+.view-tour-dates tr
+{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px dotted #333333;
+	padding: 0;
+}
+.view-tour-dates .views-field-field-date-value
+{
+    width:100px;
+}
+.view-tour-dates th
+{
+    color:#333;
+    font-weight:normal;
+    text-transform:uppercase;
+    font-size:11px;
+    padding-bottom:10px;
+}
+
+/* @end */
+
 

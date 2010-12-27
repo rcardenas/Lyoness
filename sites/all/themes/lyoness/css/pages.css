@@ -37,10 +37,15 @@ body
 #main a:link
 {
   color: #daa600;
+  text-decoration: none;
 }
 #main a:visited, a:active
 {
   color: #876a00;
+}
+#main a:hover
+{
+	text-decoration: underline;
 }
 
 #page-wrapper {
@@ -147,6 +152,33 @@ body
     font-weight: normal;
     text-shadow: 0 0 3px #000000;
     text-transform: uppercase;
+    margin-bottom: 18px;
+}
+form input.form-text,
+form textarea
+{
+    background-color: #333333;
+    border: 1px solid #444444;
+    padding: 5px;
+    color: #666666;
+}
+form input.form-submit
+{
+    background-color: #30260f;
+    border: 1px solid #493a17;
+    padding: 5px;
+    color: #dba800;
+}
+form .form-item label
+{
+    font-weight: normal;
+    font-size:11px;
+    text-transform:uppercase;
+    color:#333;
+}
+form .grippie
+{
+    display:none;
 }
 
 /* @end */
