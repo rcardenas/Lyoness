@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_social_like.module,v 1.4.2.10 2010/07/20 02:10:16 ferdi Exp $
+// $Id: fb_social_like.module,v 1.4.2.21 2010/11/21 05:21:33 ferdi Exp $
 
 /**
  * Implementation of hook init
@@ -8,14 +8,16 @@
  * 
  */
 function fb_social_like_init(){
-  $object = menu_get_object();
-  if (fb_social_like_type($object->type)) {
-    //add fbml header meta information 
-    $data = '<meta property="og:title" content="'. $object -> title. '"/>' ."\n";
-    $data .= '<meta property="og:site_name" content="'. variable_get('site_name', '') .'"/>'. "\n";
-    // @todo maybe look for images/imagefields uploaded/attached to the node ?
-    // $data .= '<meta property="og:image" content="http://ia.media-imdb.com/rock.jpg"/>';
-    drupal_set_html_head($data);
+  if (variable_get('fb_social_like_opengraph_tags', 1)) {
+    $object = menu_get_object();
+    if (is_object($object) && fb_social_like_type($object->type)) {
+      //add fbml header meta information 
+      $data = '<meta property="og:title" content="' . check_plain($object->title) . '"/>' . "\n";
+      $data .= '<meta property="og:site_name" content="' . variable_get('site_name', '') . '"/>' . "\n";
+      // @todo maybe look for images/imagefields uploaded/attached to the node ?
+      // $data .= '<meta property="og:image" content="http://ia.media-imdb.com/rock.jpg"/>';
+      drupal_set_html_head($data);
+    }
   }
 }
 
@@ -33,18 +35,11 @@ function fb_social_like_menu(){
     'file' => 'fb_social_like.admin.inc',
     'access callback' => 'user_access',
     'access arguments' => array('administer site configuration'),
-    'weight' => 1,
   );  
   
   return $items;
 }
 
-/**
- * Implementation of hook_perm().
- */
-function fb_social_like_perm() {
-  return array('access fb like widget');
-}
 
 /**
  * Implementation of hook_content_extra_fields.
@@ -65,11 +60,8 @@ function fb_social_like_content_extra_fields($type_name){
  */
 function fb_social_like_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL){
   switch ($op) {
-    case 'view' :
-      if (!user_access('access fb like widget'))
-        break;
-        
-      if (fb_social_like_type($node->type) && variable_get('fb_social_like_location', 0)) {
+    case 'view' :    
+      if ($node -> status && fb_social_like_type($node->type) && variable_get('fb_social_like_location', 0)) {
         if ($a4 || variable_get('fb_social_like_display_teasers', 1) && $a3) {
           
           $output = theme('fb_social_like_widget', fb_social_url('node/' . $node->nid));
@@ -150,17 +142,18 @@ function theme_fb_social_like_widget($url){
  * Implementation of hook_link
  */
 function fb_social_like_link($type, $object, $teaser = FALSE){
-  
-  // user does not have permission ?
-  if (!user_access('access fb like widget')){
-    return;
-  }
-  
   //only nodes are supported
   if ('node' != $type){
     return;
-  } // if no widget on teasers return
-  elseif ($teaser && !variable_get('fb_social_like_display_teasers', 1)){
+  } 
+  
+  // dont like unpublished nodes
+  if (!$object -> status){
+    return;
+  }
+  
+  // if no widget on teasers return
+  if ($teaser && !variable_get('fb_social_like_display_teasers', 1)){
     return;
   }
   
@@ -173,7 +166,7 @@ function fb_social_like_link($type, $object, $teaser = FALSE){
   $links = array();
   if ($type == 'node' && fb_social_like_type($object -> type)) {
     $links['fb_social_like'] = array(
-      'title' => theme_fb_social_like_widget(fb_social_url('node/' . $object -> nid)), 
+      'title' => theme('fb_social_like_widget', fb_social_url('node/' . $object -> nid)), 
       'html' => TRUE,
     );
   }
@@ -190,5 +183,14 @@ function fb_social_like_link($type, $object, $teaser = FALSE){
 function fb_social_like_type($type){
   $fb_like_types = variable_get('fb_social_like_node_types', array());
   return (isset($fb_like_types[$type]) && $fb_like_types[$type]) ? TRUE : FALSE;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function fb_social_like_views_api() {
+  return array(
+    'api' => '2.0',
+  );
 }
 

@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_social.module,v 1.2.2.7 2010/07/30 01:44:51 ferdi Exp $
+// $Id: fb_social.module,v 1.2.2.10 2010/11/21 03:25:30 ferdi Exp $
 
 /**
  * @file
@@ -20,7 +20,6 @@ function fb_social_menu(){
     'file' => 'fb_social.admin.inc',
     'access callback' => 'user_access',
     'access arguments' => array('administer site configuration'),
-    'weight' => 10,
   );
   
   $items['admin/settings/fb/social/settings'] = array(
@@ -31,10 +30,145 @@ function fb_social_menu(){
     'file' => 'fb_social.admin.inc',
     'access callback' => 'user_access',
     'access arguments' => array('administer site configuration'),
-    'weight' => 0,
+    'weight' => -10,
   );  
   
+  $extra_settings = array('recommendations', 'livestream', 'activityfeed', 'facepile');
+  foreach($extra_settings as $extra){
+  $items["admin/settings/fb/social/$extra"] = array(
+    'type' => MENU_LOCAL_TASK,
+    'title' => $extra,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array("fb_social_${extra}_settings_form"),
+    'file' => 'fb_social.widgets.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'weight' => 1,
+  );  
+  }
+  
   return $items;
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function fb_social_block($op = 'list', $delta = 0) {
+  switch ($op) {
+    case 'list':
+      $info = array(
+        'recommendations' => array('info' => t('fb social: Recommendations')),
+        'livestream' => array('info' => t('fb social: Live stream')),
+        'activityfeed' => array('info' => t('fb social: Activity feed')),
+        'facepile' => array('info' => t('fb social: Facepile')),
+      );
+      return $info;
+    case 'view':
+      //module_load_include('inc', 'atrium', 'atrium.block');
+      $function = "_fb_social_{$delta}_block";
+      if (function_exists($function)) {
+      	return call_user_func($function);
+      }
+      break;
+  }
+}
+
+
+function _fb_social_recommendations_block(){
+  $block['subject'] = '';
+  $block['content'] = theme('fb_social_recommendations');
+  return $block;
+}
+
+function _fb_social_activityfeed_block(){
+  $block['subject'] = '';
+  $block['content'] = theme('fb_social_activityfeed');
+  return $block;
+}
+
+function _fb_social_livestream_block(){
+  $block['subject'] = '';
+  $block['content'] = theme('fb_social_livestream');
+  return $block;
+}
+
+function _fb_social_facepile_block(){
+  $block['subject'] = '';
+  $block['content'] = theme('fb_social_facepile');
+  return $block;
+}
+/**
+ * Implementation of hook_theme
+ */
+function fb_social_theme() {
+  return array(
+    'fb_social_recommendations' => array(),
+    'fb_social_livestream' => array(),
+    'fb_social_activityfeed' => array(),
+    'fb_social_facepile' => array(),
+  );
+}
+
+function theme_fb_social_recommendations(){
+  $attrs = array(
+      'site' => variable_get('fb_social_recommendation_site', ''), 
+      'width' => variable_get('fb_social_recommendation_width', 300),
+      'height' => variable_get('fb_social_recommendation_height', 300),
+      'colorscheme' => variable_get('fb_social_recommendation_colorscheme', 'light'),
+      'font' => variable_get('fb_social_recommendation_font', ''), 
+      'border_coler' => variable_get('fb_social_recommendation_border_color', ''), 
+      'header' => variable_get('fb_social_recommendation_header', 1) ? 'true' : 'false', 
+  );
+  
+  $attrs = drupal_attributes($attrs);
+  
+  return '<div id="fb-social-recommendation-widget"><fb:recommendations ' . $attrs . '></fb:recommendations></div>';
+}
+
+function theme_fb_social_activityfeed(){
+  $attrs = array(
+      'site' => variable_get('fb_social_activityfeed_site', ''), 
+      'width' => variable_get('fb_social_activityfeed_width', 300),
+      'height' => variable_get('fb_social_activityfeed_height', 300),
+      'colorscheme' => variable_get('fb_social_activityfeed_colorscheme', 'light'),
+      'font' => variable_get('fb_social_activityfeed_font', ''), 
+      'border_coler' => variable_get('fb_social_activityfeed_border_color', ''), 
+      'header' => variable_get('fb_social_activityfeed_header', 1) ? 'true' : 'false', 
+      'recommendations' => variable_get('fb_social_recommendations_header', 1) ? 'true' : 'false',
+  );
+  
+  $attrs = drupal_attributes($attrs);
+  
+  return '<div id="fb-social-activity-widget"><fb:activity ' . $attrs . '></fb:recommendations></div>';
+}
+
+function theme_fb_social_livestream(){
+  $attrs = array(
+      'appid' => variable_get('fb_social_appid', ''), 
+      'width' => variable_get('fb_social_livestream_width', 300), 
+      'height' => variable_get('fb_social_livestream_height', 500),
+      'always_post_to_friends' => variable_get('fb_social_livestream_posttofriends', 0) ? 'true' : 'false', 
+
+  );
+  
+  $attrs = drupal_attributes($attrs);
+  
+  return '<div class="fb-social-live-stream-widget"><fb:live-stream ' . $attrs . '></fb:live-stream></div>';
+}
+
+
+function theme_fb_social_facepile(){
+  $attrs = array(
+      'max-rows' => variable_get('fb_social_facepile_numrows', 1),
+      'href' => variable_get('fb_social_facepile_url', '') ,
+      'width' => variable_get('fb_social_facepile_width', 200),
+
+  );
+  
+  $attrs = drupal_attributes($attrs);
+  
+  return '<div class="fb-social-facepile-widget"><fb:facepile ' . $attrs . '></fb:facepile></div>';
+  
 }
 
 
@@ -67,9 +201,16 @@ function fb_social_footer($main = 0) {
          appId: " . drupal_to_js($appid) .",
          status: true, 
          cookie: true,
-         xfbml: true});
+         xfbml: true
+       });
        
-         jQuery.event.trigger('fb:init');    
+       ";
+         
+         // let each module subscribe to different events
+         $output .= implode("\n", module_invoke_all('fb_social_event_subscribe'));
+         $output .="
+       
+         
      };
      (function() {
        var e = document.createElement('script'); 
@@ -78,7 +219,7 @@ function fb_social_footer($main = 0) {
        document.getElementById('fb-root').appendChild(e);
      }());
   </script>";
-  
+         
   return $output;
 }
 

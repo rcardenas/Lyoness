@@ -21,6 +21,27 @@ function fb_social_share_settings_form(){
     '#options' => node_get_types('names'),
   );
   
+  $form['widget_location'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Widget location and display'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['widget_location']['fb_social_share_location'] = array(
+    '#type' => 'radios',
+    '#title' => t('widget location'),
+    '#default_value' => variable_get('fb_social_share_location', 0),
+    '#options' => array(t('Node links'), t('Node content')),
+    '#description' => t('The widget can be printed in the "links" are of the node or as part of the node content'),
+  );
+  
+  $form['widget_location']['fb_social_share_display_teasers'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show on teasers'),
+    '#default_value' => variable_get('fb_social_share_display_teasers', 1),
+    '#description' => t('Should the widget be displayed on teasers?'),
+  );
+  
 
   $form['fb_social_share_layout_style'] = array(
     '#type' => 'select',

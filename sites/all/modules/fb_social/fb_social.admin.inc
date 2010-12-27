@@ -1,6 +1,6 @@
 <?php
 
-// $Id: fb_social.admin.inc,v 1.2.2.6 2010/07/14 02:29:42 ferdi Exp $
+// $Id: fb_social.admin.inc,v 1.2.2.8 2010/11/21 03:22:23 ferdi Exp $
 
 
 /**
@@ -21,6 +21,15 @@ function fb_social_settings_form(){
       )), 
       '#default_value' => variable_get('fb_social_appid', '') 
   );
+  
+  /*
+  $form['fb_social_secret'] = array(
+      '#title' => t('Facebook application secret ky'), 
+      '#type' => 'textfield', 
+      '#description' => t('Facebook application secret key'), 
+      '#default_value' => variable_get('fb_social_secret', '') 
+  );
+  */
   
   $form['fb_social_locale'] = array(
       '#title' => t('Default facebook application locale'), 
@@ -77,7 +86,8 @@ function _get_facebook_locale(){
   $fb_locale = array();
   $cache = cache_get('fb_social');
   if (empty($cache->data)) {
-    $xml = simplexml_load_file("http://www.facebook.com/translations/FacebookLocales.xml");
+    $result = drupal_http_request("http://www.facebook.com/translations/FacebookLocales.xml");
+    $xml = simplexml_load_string($result->data);
     foreach ( $xml->locale as $line ) {
       $representation = ( array ) $line->codes->code->standard->representation;
       $name = ( array ) $line->englishName;

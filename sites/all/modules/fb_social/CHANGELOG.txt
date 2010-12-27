@@ -1,4 +1,21 @@
-$Id: CHANGELOG.txt,v 1.1.2.7 2010/08/09 03:02:47 ferdi Exp $
+$Id: CHANGELOG.txt,v 1.1.2.10 2010/11/21 05:04:43 ferdi Exp $
+
+fb_social 6.x-1.0-BETA5, 2010-11-xx
+ 
+#964618 "Share" widget has no "Widget location and display" options
+#930780 All fb social modules should have .install files
+#974036 by taslett : Spotted a incorrect theme call
+#977674 Hide like button from unpublished content'
+Add facepile, livestream, recommendations, activityfeed plugins
+#930792 fb_social_menu in fb_social.module should not be weighted
+light views support for like widget
+#929700 by AlexisWilke: Menu may not exist in hook_init() function
+#917546 : Add box_count to layout styles for like button
+#930792 fb_social_menu in fb_social.module should not be weighted
+#930798 Add administrative option to not write Open Graph protocol meta tags in fb_social_like
+#907644 Anonymous users cannot see likebox + revert #858156
+#919142, 960258 by chia: meta tag og:title needs html encoding
+#893672 test if object is not empty before testing its properties
 
 fb_social 6.x-1.0-BETA4, 2010-08-08
 

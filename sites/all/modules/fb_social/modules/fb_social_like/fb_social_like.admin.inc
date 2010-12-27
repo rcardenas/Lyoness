@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_social_like.admin.inc,v 1.3.2.2 2010/05/07 02:49:42 ferdi Exp $
+// $Id: fb_social_like.admin.inc,v 1.3.2.7 2010/11/21 05:07:21 ferdi Exp $
 
 
 /**
@@ -19,6 +19,13 @@ function fb_social_like_settings_form(){
     '#description' => t('Select types that will use the facebook like plugin'),
     '#default_value' => variable_get('fb_social_like_node_types', array()),
     '#options' => node_get_types('names'),
+  );
+  
+  $form['fb_social_like_opengraph_tags'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Output the facebook opengraph tags for the above content types'),
+    '#description' => t('This module has limited support for fb opengraph tags. Uncheck if you are using some other modules that better support opengraph protocol'),
+    '#default_value' => variable_get('fb_social_like_opengraph_tags', 1),
   );
   
   $form['widget_location'] = array(
@@ -42,36 +49,47 @@ function fb_social_like_settings_form(){
     '#description' => t('Should the widget be displayed on teasers?'),
   );
   
-  $form['widget_setings'] = array(
+  $form['widget_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Widget settings'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
   
-  $form['widget_setings']['fb_social_like_layout_style'] = array(
+  $widget_elements = fb_social_like_widget_settings_form();
+  foreach($widget_elements as $key => $value){
+    $form['widget_settings'][$key] = $value;
+  }
+  
+  $form = system_settings_form($form);
+  return $form;
+}
+
+function fb_social_like_widget_settings_form(){
+  $form = array();
+  $form['fb_social_like_layout_style'] = array(
     '#type' => 'select',
     '#title' => t('Layout style'),
     '#description' => t('Determines the size and the amount of the social context next to the button'),
     '#default_value' => variable_get('fb_social_like_layout_style', 'button_count'),
-    '#options' => array('standard' => t('standard'), 'button_count' => t('button_count') )
+    '#options' => array('standard' => t('standard'), 'button_count' => t('button_count'), 'box_count' => t('box_count') ),
   );
   
-  $form['widget_setings']['fb_social_like_show_faces'] = array(
+  $form['fb_social_like_show_faces'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show faces'),
     '#description' => t('Show profiles pictures below the button'),
     '#default_value' => variable_get('fb_social_like_show_faces', 0),
   );
   
-  $form['widget_setings']['fb_social_like_width'] = array(
+  $form['fb_social_like_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
     '#description' => t('The width of the plugin in pixel'),
     '#default_value' => variable_get('fb_social_like_width', 350),
   );
   
-  $form['widget_setings']['fb_social_like_verb'] = array(
+  $form['fb_social_like_verb'] = array(
     '#type' => 'select',
     '#title' => t('Verb'),
     '#description' => t('The verb to display in the button'),
@@ -79,7 +97,7 @@ function fb_social_like_settings_form(){
     '#options' => array('like' => t('like'), 'recommend' => t('recommend') )
   );
   
-  $form['widget_setings']['fb_social_like_font'] = array(
+  $form['fb_social_like_font'] = array(
     '#type' => 'select',
     '#title' => t('Font'),
     '#description' => t('The font of the plugin'),
@@ -87,7 +105,7 @@ function fb_social_like_settings_form(){
     '#options' => array('arial' => t('arial'), 'verdana' => t('verdana') )
   );
   
-  $form['widget_setings']['fb_social_like_color'] = array(
+  $form['fb_social_like_color'] = array(
     '#type' => 'select',
     '#title' => t('Color'),
     '#description' => t('The color scheme of the plugin'),
@@ -95,6 +113,5 @@ function fb_social_like_settings_form(){
     '#options' => array('dark' => t('dark'), 'light' => t('light'), 'evil' => t('evil') )
   );
   
-  $form = system_settings_form($form);
   return $form;
 }
