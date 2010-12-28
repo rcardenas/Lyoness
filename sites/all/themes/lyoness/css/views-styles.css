@@ -5,6 +5,29 @@
  * Views Styling
  */
 
+/* @group Downloads */
+
+.view-downloads .views-row
+{
+	float: left;
+}
+.view-downloads .views-row-odd
+{
+	margin-right: 32px;
+}
+.view-downloads img
+{
+	display: block;
+}
+.view-downloads .views-field-title
+{
+	text-align: center;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+/* @end */
+
 /* @group Photos */
 
 #block-views-content_block-block_1 img,
@@ -12,9 +35,14 @@
 {
 	display: block;
 }
-#block-views-content_block-block_1
+#block-views-content_block-block_1,
+#block-views-content_block-block_2
 {
 	margin: 0;
+}
+#block-views-content_block-block_2 *
+{
+	display: block;
 }
 .view-photos .views-row
 {
@@ -39,14 +67,33 @@
 }
 .view-videos .views-row
 {
-    border-bottom: 1px dotted #333333;
     margin-bottom: 20px;
+    clear: both;
 }
 .view-videos .views-field-title
 {
     font-weight:bold;
-    font-size:23px;
-    line-height:24px;
+    font-size:18px;
+    line-height:20px;
+}
+.view-videos .views-field-teaser
+{
+    font-size: 12px;
+}
+.view-videos img
+{
+	display: block;
+	border: 1px solid #333333;
+}
+.view-videos .views-field-field-video-embed
+{
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.view-videos .views-row-last .views-field-field-video-embed
+{
+	margin-bottom: 0;
 }
 
 /* @end */
