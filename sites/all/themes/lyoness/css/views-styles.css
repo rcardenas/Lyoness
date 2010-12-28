@@ -5,6 +5,32 @@
  * Views Styling
  */
 
+/* @group Photos */
+
+#block-views-content_block-block_1 img,
+.view-photos img
+{
+	display: block;
+}
+#block-views-content_block-block_1
+{
+	margin: 0;
+}
+.view-photos .views-row
+{
+	float: left;
+}
+.view-photos img
+{
+	opacity: 0.3;
+}
+.view-photos img:hover
+{
+	opacity: 1.0;
+}
+
+/* @end */
+
 /* @group Videos */
 
 .emvideo-thumbnail-replace-full .emvideo-thumbnail-replacement span

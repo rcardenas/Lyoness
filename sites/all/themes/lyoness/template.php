@@ -62,7 +62,13 @@
  *   and http://drupal.org/node/190815#template-suggestions
  */
 
+// Add required js and css files
 drupal_add_js(path_to_theme().'/js/lyoness.js','theme');
+/*if ( arg(0) == 'photos' )
+{
+  drupal_add_js(path_to_theme().'/fancybox/jquery.fancybox-1.3.4.pack.js','theme');
+  drupal_add_css(path_to_theme().'/fancybox/jquery.fancybox-1.3.4.css','theme');
+}*/
 
 /**
  * Implementation of HOOK_theme().
@@ -99,9 +105,14 @@ function lyoness_preprocess(&$vars, $hook) {
  * @param $hook
  *   The name of the template being rendered ("page" in this case.)
  */
-/* -- Delete this line if you want to use this function
-function lyoness_preprocess_page(&$vars, $hook) {
-  $vars['sample_variable'] = t('Lorem ipsum.');
+
+function lyoness_preprocess_page(&$vars, $hook) 
+{
+  // destroy breadcrumb if not on node page
+  if ( arg(0) != 'node' )
+  {
+    unset( $vars['breadcrumb'] );
+  }
 }
 // */
 

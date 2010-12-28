@@ -8,4 +8,10 @@ Drupal.behaviors.lyoness = function(context)
     $(this).next().slideToggle('slow');
     return false;
   });
+  
+  // fancybox
+  /*if ( $('body').hasClass('section-photos') )
+  {
+    $('a.imagecache-photo_thumb').attr('rel','gallery').fancybox({overlayColor: '#000'});
+  }*/
 }

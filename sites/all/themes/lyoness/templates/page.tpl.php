@@ -170,7 +170,6 @@
 
         <?php print $highlight; ?>
 
-        <?php print $breadcrumb; ?>
         <?php if ($title): ?>
           <h1 class="title"><?php print $title; ?></h1>
         <?php endif; ?>
@@ -182,7 +181,8 @@
 
         <?php print $content_top; ?>
 
-        <div id="content-area">
+        <div id="content-area" class="clearfix">
+          <?php print $breadcrumb; ?>
           <?php print $messages; ?>
           <?php print $content; ?>
         </div>

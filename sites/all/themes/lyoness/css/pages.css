@@ -32,8 +32,21 @@ body
   padding-top: 32px;
 	background: url(../images/ly/bg.jpg) center top;
 	color: #999999;
+	background-color: #000000;
 }
-
+.breadcrumb
+{
+    margin-bottom:20px;
+    font-size:11px;
+    text-transform: uppercase;
+    color:#333333;
+}
+.breadcrumb a
+{
+    text-decoration:none;
+    color:#666666 !important;
+    font-weight:bold;
+}
 #main a:link
 {
   color: #daa600;
@@ -287,9 +300,13 @@ div.messages /* Important messages (status, warning, and error) for the user. Se
     border-width: 1px;
     margin: 0 0 32px;
     padding: 10px 0;
+    font-size: 11px;
 }
 
-div.status /* Normal priority messages */ {
+div.status /* Normal priority messages */ 
+{
+	color: #FFFF77;
+	padding: 10px;
 }
 
 div.warning,
